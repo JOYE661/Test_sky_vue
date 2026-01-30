@@ -8,3 +8,11 @@ export const getSetmealList = (categoryId?: number, name?: string) => {
     params: { categoryId, name }
   })
 }
+
+// 根据套餐(品牌)ID查询包含的菜品
+export const getSetmealDishes = (id: string | number) => {
+  return request({
+    url: `/user/setmeal/dish/${id}`,
+    method: 'get'
+  })
+}

@@ -31,6 +31,11 @@ const router = createRouter({
       component: () => import('../views/cart/index.vue') // 还没写
     },
     {
+      path: '/solutions/affiliate',
+      name: 'AffiliateSolution',
+      component: () => import('../views/solutions/affiliate.vue')
+    },
+    {
       path: '/order',
       name: 'OrderList',
       component: () => import('../views/order/index.vue')

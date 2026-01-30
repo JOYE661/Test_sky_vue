@@ -68,7 +68,7 @@
            </div>
 
            <!-- SKU Selection (Flavors) -->
-           <div class="space-y-8 mb-10 flex-1" v-if="product.flavors && product.flavors.length > 0">
+           <div class="space-y-8 mb-10 flex-1" v-if="!isBrand && product.flavors && product.flavors.length > 0">
               <div v-for="flavor in product.flavors" :key="flavor.name">
                  <h3 class="font-bold text-gray-900 mb-4 flex items-center">
                      选择{{ flavor.name }}
@@ -107,9 +107,9 @@
                         class="flex-1 bg-white border-2 border-primary text-primary font-bold py-4 rounded-xl transition-all text-lg shadow-sm active:scale-95"
                         :class="shopStatus === 0 ? 'opacity-60 border-gray-200 text-gray-400 cursor-not-allowed' : 'hover:bg-blue-50'"
                         :disabled="shopStatus === 0"
-                        @click="shopStatus === 0 ? ElMessage.warning('敬请期待，暂未开放购买') : handleAddToCart()"
+                        @click="shopStatus === 0 ? ElMessage.warning('敬请期待，暂未开放购买') : (isBrand ? handleAddBrandBundle() : handleAddToCart())"
                     >
-                        加入购物车
+                        {{ isBrand ? '加入品牌组合' : '加入购物车' }}
                     </button>
                     <button
                       class="flex-1 bg-primary text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-blue-100 text-lg active:scale-95"
@@ -122,6 +122,31 @@
                  </div>
            </div>
         </div>
+      </div>
+
+      <!-- Brand Items -->
+      <div v-if="isBrand" class="mt-8 bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+         <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold text-gray-900">品牌组合清单</h3>
+            <button
+              class="px-4 py-2 bg-primary text-white rounded-lg text-sm font-bold hover:bg-blue-600 transition"
+              :disabled="shopStatus === 0"
+              @click="shopStatus === 0 ? ElMessage.warning('敬请期待，暂未开放购买') : handleAddBrandBundle()"
+            >
+              一键加购整套
+            </button>
+         </div>
+         <div v-if="brandItems.length === 0" class="text-sm text-gray-500">暂无组合明细</div>
+         <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div v-for="item in brandItems" :key="item.id" class="flex items-center bg-gray-50 rounded-xl p-3">
+               <img :src="getImageUrl(item.image)" class="w-16 h-16 rounded-lg object-cover mr-3" alt="">
+               <div class="flex-1">
+                  <div class="font-semibold text-gray-900">{{ item.name }}</div>
+                  <div class="text-xs text-gray-500 mt-1">x {{ item.copies || item.number || 1 }}</div>
+               </div>
+               <div class="text-sm font-bold text-red-600">¥ {{ item.price || item.amount || '--' }}</div>
+            </div>
+         </div>
       </div>
 
       <!-- Detail Tabs -->
@@ -163,7 +188,7 @@
 import { ref, onMounted, reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getProductDetail, getDishList } from '@/api/product'
-import { getSetmealList } from '@/api/setmeal'
+import { getSetmealList, getSetmealDishes } from '@/api/setmeal'
 import { getShopStatus } from '@/api/shop'
 import { useCartStore } from '@/store/cart'
 import { ElMessage } from 'element-plus'
@@ -178,6 +203,8 @@ const currentImage = ref('')
 const images = ref<string[]>([])
 const activeTab = ref('商品详情')
 const shopStatus = ref(1)
+const isBrand = ref(false)
+const brandItems = ref<any[]>([])
 
 // 存储选中的多个规格，例如 { "温度": "常温", "包装": "大箱" }
 const selectedFlavors = reactive<Record<string, string>>({})
@@ -197,23 +224,23 @@ const handleAddToCart = async () => {
   }
   if (!product.value.id) return
 
-  // 检查是否选择了所有规格
-  const unselected = product.value.flavors?.filter((f: any) => !selectedFlavors[f.name])
-  if (unselected && unselected.length > 0) {
-    ElMessage.warning(`请选择${unselected[0].name}`)
-    return
+  if (!isBrand.value) {
+    const unselected = product.value.flavors?.filter((f: any) => !selectedFlavors[f.name])
+    if (unselected && unselected.length > 0) {
+      ElMessage.warning(`请选择${unselected[0].name}`)
+      return
+    }
   }
-
   const flavorStr = Object.values(selectedFlavors).join(',')
 
   try {
     for (let i = 0; i < quantity.value; i++) {
       await cartStore.addToCart({
         id: product.value.id,
-        dishId: product.value.dishId || product.value.id,
-        setmealId: product.value.setmealId,
-        selectedFlavor: flavorStr,
-        categoryType: product.value.categoryType || (product.value.setmealId ? 2 : 1)
+        dishId: isBrand.value ? undefined : (product.value.dishId || product.value.id),
+        setmealId: isBrand.value ? product.value.id : product.value.setmealId,
+        selectedFlavor: isBrand.value ? '' : flavorStr,
+        categoryType: isBrand.value ? 2 : (product.value.categoryType || (product.value.setmealId ? 2 : 1))
       })
     }
     ElMessage.success({
@@ -233,10 +260,12 @@ const handleBuyNow = async () => {
   }
   if (!product.value.id) return
 
-  const unselected = product.value.flavors?.filter((f: any) => !selectedFlavors[f.name])
-  if (unselected && unselected.length > 0) {
-    ElMessage.warning(`请选择${unselected[0].name}`)
-    return
+  if (!isBrand.value) {
+    const unselected = product.value.flavors?.filter((f: any) => !selectedFlavors[f.name])
+    if (unselected && unselected.length > 0) {
+      ElMessage.warning(`请选择${unselected[0].name}`)
+      return
+    }
   }
   const flavorStr = Object.values(selectedFlavors).join(',')
 
@@ -244,15 +273,35 @@ const handleBuyNow = async () => {
     for (let i = 0; i < quantity.value; i++) {
       await cartStore.addToCart({
         id: product.value.id,
-        dishId: product.value.dishId || product.value.id,
-        setmealId: product.value.setmealId,
-        selectedFlavor: flavorStr,
-        categoryType: product.value.categoryType || (product.value.setmealId ? 2 : 1)
+        dishId: isBrand.value ? undefined : (product.value.dishId || product.value.id),
+        setmealId: isBrand.value ? product.value.id : product.value.setmealId,
+        selectedFlavor: isBrand.value ? '' : flavorStr,
+        categoryType: isBrand.value ? 2 : (product.value.categoryType || (product.value.setmealId ? 2 : 1))
       })
     }
     router.push('/order/create')
   } catch (e) {
     ElMessage.error('下单前加购失败')
+  }
+}
+
+const handleAddBrandBundle = async () => {
+  if (shopStatus.value === 0) {
+    ElMessage.warning('敬请期待，暂未开放购买')
+    return
+  }
+  if (!product.value.id) return
+  try {
+    for (let i = 0; i < quantity.value; i++) {
+      await cartStore.addToCart({
+        id: product.value.id,
+        setmealId: product.value.id,
+        categoryType: 2
+      })
+    }
+    ElMessage.success('已加入品牌组合')
+  } catch (e) {
+    ElMessage.error('加购失败')
   }
 }
 
@@ -262,6 +311,7 @@ const initData = async () => {
   const rawCategoryId = route.query.categoryId as string | undefined
   const categoryId = rawCategoryId ? Number(rawCategoryId) : undefined
   const type = Number(route.query.type || 1)
+  isBrand.value = type === 2
   try {
     const res: any = await getProductDetail(id)
     if (res) {
@@ -274,6 +324,14 @@ const initData = async () => {
           selectedFlavors[f.name] = values[0]
         }
       })
+      if (isBrand.value) {
+        try {
+          const list: any = await getSetmealDishes(res.id)
+          brandItems.value = list || []
+        } catch (e) {
+          console.error('Fetch brand items failed', e)
+        }
+      }
       return
     }
   } catch (e) {
@@ -296,6 +354,14 @@ const initData = async () => {
           selectedFlavors[f.name] = values[0]
         }
       })
+      if (isBrand.value) {
+        try {
+          const list: any = await getSetmealDishes(found.id)
+          brandItems.value = list || []
+        } catch (e) {
+          console.error('Fetch brand items failed', e)
+        }
+      }
     } else {
       ElMessage.error('未找到该产品')
     }

@@ -11,7 +11,7 @@
       <nav class="hidden md:flex space-x-8">
         <router-link to="/" class="text-gray-600 hover:text-primary transition">首页</router-link>
         <router-link to="/products" class="text-gray-600 hover:text-primary transition">全部产品</router-link>
-        <a href="#" class="text-gray-600 hover:text-primary transition">解决方案</a>
+        <router-link to="/solutions/affiliate" class="text-gray-600 hover:text-primary transition">解决方案</router-link>
         <a href="#" class="text-gray-600 hover:text-primary transition">关于我们</a>
       </nav>
 
@@ -93,6 +93,7 @@
         <div class="flex flex-col p-4 space-y-4">
             <router-link to="/" class="text-gray-700 font-medium py-2 border-b border-gray-50" @click="isOpen = false">首页</router-link>
             <router-link to="/products" class="text-gray-700 font-medium py-2 border-b border-gray-50" @click="isOpen = false">全部商品</router-link>
+            <router-link to="/solutions/affiliate" class="text-gray-700 font-medium py-2 border-b border-gray-50" @click="isOpen = false">解决方案</router-link>
             <a href="#" class="text-gray-700 font-medium py-2 border-b border-gray-50">个人中心</a>
             
             <div v-if="isLoggedIn">
