@@ -1,0 +1,1510 @@
+{
+	"info": {
+		"_postman_id": "b8e1f5a0-4d5b-4b1a-9b8a-123456789abc",
+		"name": "苍穹外卖-管理端接口",
+		"description": "根据提供的 YApi/Swagger JSON 转换的管理端接口集合",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "分类相关接口",
+			"item": [
+				{
+					"name": "修改分类",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"分类id\"},\"name\":{\"type\":\"string\",\"description\":\"分类名称\"},\"sort\":{\"type\":\"integer\",\"format\":\"int32\",\"description\":\"排序\"},\"type\":{\"type\":\"integer\",\"format\":\"int32\",\"description\":\"分类类型\"}},\"title\":\"CategoryDTO\",\"$$ref\":\"#/definitions/CategoryDTO\",\"required\":[\"id\",\"name\",\"sort\",\"type\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/category",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "分类分页查询",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/category/page?name=传统主食&page=1&pageSize=10&type=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"category",
+								"page"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "传统主食",
+									"description": "分类名称"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "页码"
+								},
+								{
+									"key": "pageSize",
+									"value": "10",
+									"description": "每页记录数"
+								},
+								{
+									"key": "type",
+									"value": "1",
+									"description": "分类类型：1为菜品分类，2为套餐分类"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "启用、禁用分类",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/admin/category/status/:status?id=100",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"category",
+								"status",
+								":status"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "100",
+									"description": "分类id"
+								}
+							],
+							"variable": [
+								{
+									"key": "status",
+									"value": "1",
+									"description": "1为启用，0为禁用"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增分类",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"integer\",\"format\":\"int64\"},\"name\":{\"type\":\"string\",\"description\":\"分类名称\"},\"sort\":{\"type\":\"integer\",\"format\":\"int32\",\"description\":\"排序，按照升序排序\"},\"type\":{\"type\":\"integer\",\"format\":\"int32\",\"description\":\"分类类型：1为菜品分类，2为套餐分类\"}},\"title\":\"CategoryDTO\",\"$$ref\":\"#/definitions/CategoryDTO\",\"required\":[\"name\",\"sort\",\"type\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/category",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "根据id删除分类",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/category?id=100",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"category"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "100",
+									"description": "分类id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "根据类型查询分类",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/category/list?type=2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"category",
+								"list"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "2",
+									"description": "分类类型：1为菜品分类，2为套餐分类"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "员工相关接口",
+			"item": [
+				{
+					"name": "修改密码",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"type\":\"object\",\"properties\":{\"empId\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"员工id\"},\"newPassword\":{\"type\":\"string\",\"description\":\"新密码\"},\"oldPassword\":{\"type\":\"string\",\"description\":\"旧密码\"}},\"title\":\"PasswordEditDTO\",\"$$ref\":\"#/definitions/PasswordEditDTO\",\"required\":[\"empId\",\"newPassword\",\"oldPassword\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/employee/editPassword",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"employee",
+								"editPassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "启用、禁用员工账号",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/admin/employee/status/:status?id=",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"employee",
+								"status",
+								":status"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "员工id"
+								}
+							],
+							"variable": [
+								{
+									"key": "status",
+									"value": "1",
+									"description": "状态，1为启用 0为禁用"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "员工分页查询",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/employee/page?name=张三&page=1&pageSize=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"employee",
+								"page"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "张三",
+									"description": "员工姓名"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "页码"
+								},
+								{
+									"key": "pageSize",
+									"value": "10",
+									"description": "每页记录数"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "员工登录",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"type\":\"object\",\"properties\":{\"password\":{\"type\":\"string\",\"description\":\"密码\"},\"username\":{\"type\":\"string\",\"description\":\"用户名\"}},\"title\":\"EmployeeLoginDTO\",\"description\":\"员工登录时传递的数据模型\",\"$$ref\":\"#/definitions/EmployeeLoginDTO\",\"required\":[\"password\",\"username\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/employee/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"employee",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增员工",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"员工id\"},\"idNumber\":{\"type\":\"string\",\"description\":\"身份证\"},\"name\":{\"type\":\"string\",\"description\":\"姓名\"},\"phone\":{\"type\":\"string\",\"description\":\"手机号\"},\"sex\":{\"type\":\"string\",\"description\":\"性别\"},\"username\":{\"type\":\"string\",\"description\":\"用户名\"}},\"title\":\"EmployeeDTO\",\"$$ref\":\"#/definitions/EmployeeDTO\",\"required\":[\"idNumber\",\"name\",\"phone\",\"sex\",\"username\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/employee",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"employee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "根据id查询员工",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/employee/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"employee",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "100",
+									"description": "员工id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "编辑员工信息",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"integer\",\"format\":\"int64\"},\"idNumber\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"phone\":{\"type\":\"string\"},\"sex\":{\"type\":\"string\"},\"username\":{\"type\":\"string\"}},\"title\":\"EmployeeDTO\",\"$$ref\":\"#/definitions/EmployeeDTO\",\"required\":[\"id\",\"idNumber\",\"name\",\"phone\",\"sex\",\"username\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/employee",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"employee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "退出登录",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/employee/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"employee",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "套餐相关接口",
+			"item": [
+				{
+					"name": "修改套餐",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"type\":\"object\",\"properties\":{\"categoryId\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"分类id\"},\"description\":{\"type\":\"string\",\"description\":\"套餐描述\"},\"id\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"套餐id\"},\"image\":{\"type\":\"string\",\"description\":\"套餐图片路径\"},\"name\":{\"type\":\"string\",\"description\":\"套餐名称\"},\"price\":{\"type\":\"number\",\"description\":\"套餐价格\"},\"setmealDishes\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"copies\":{\"type\":\"integer\",\"format\":\"int32\",\"description\":\"菜品份数\"},\"dishId\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"菜品id\"},\"id\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"关系表主键值\"},\"name\":{\"type\":\"string\",\"description\":\"菜品名称\"},\"price\":{\"type\":\"number\",\"description\":\"菜品价格\"},\"setmealId\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"套餐id\"}},\"title\":\"SetmealDish\",\"$$ref\":\"#/definitions/SetmealDish\",\"required\":[\"copies\",\"dishId\",\"name\",\"price\"]},\"description\":\"套餐和菜品关联关系\"},\"status\":{\"type\":\"integer\",\"format\":\"int32\",\"description\":\"套餐起售状态\"}},\"title\":\"SetmealDTO\",\"$$ref\":\"#/definitions/SetmealDTO\",\"required\":[\"categoryId\",\"id\",\"image\",\"name\",\"price\",\"setmealDishes\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/setmeal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"setmeal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "分页查询",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/setmeal/page?categoryId=&name=&page=&pageSize=&status=",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"setmeal",
+								"page"
+							],
+							"query": [
+								{
+									"key": "categoryId",
+									"value": "",
+									"description": "分类id"
+								},
+								{
+									"key": "name",
+									"value": "",
+									"description": "套餐名称"
+								},
+								{
+									"key": "page",
+									"value": "",
+									"description": "页码"
+								},
+								{
+									"key": "pageSize",
+									"value": "",
+									"description": "每页记录数"
+								},
+								{
+									"key": "status",
+									"value": "",
+									"description": "套餐起售状态"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "套餐起售、停售",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/admin/setmeal/status/:status?id=101",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"setmeal",
+								"status",
+								":status"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "101",
+									"description": "套餐id"
+								}
+							],
+							"variable": [
+								{
+									"key": "status",
+									"value": "1",
+									"description": "套餐状态，1表示起售，0表示停售"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "批量删除套餐",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/setmeal?ids=",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"setmeal"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "",
+									"description": "ids"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增套餐",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"type\":\"object\",\"properties\":{\"categoryId\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"分类id\"},\"description\":{\"type\":\"string\",\"description\":\"套餐描述\"},\"id\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"套餐id\"},\"image\":{\"type\":\"string\",\"description\":\"套餐图片\"},\"name\":{\"type\":\"string\",\"description\":\"套餐名称\"},\"price\":{\"type\":\"number\",\"description\":\"套餐价格\"},\"setmealDishes\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"copies\":{\"type\":\"integer\",\"format\":\"int32\",\"description\":\"份数\"},\"dishId\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"菜品id\"},\"id\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"套餐和菜品关系id\"},\"name\":{\"type\":\"string\",\"description\":\"菜品名称\"},\"price\":{\"type\":\"number\",\"description\":\"菜品价格\"},\"setmealId\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"套餐id\"}},\"title\":\"SetmealDish\",\"$$ref\":\"#/definitions/SetmealDish\",\"required\":[\"copies\",\"dishId\",\"name\",\"price\",\"setmealId\"]},\"description\":\"套餐包含的菜品\"},\"status\":{\"type\":\"integer\",\"format\":\"int32\",\"description\":\"套餐状态：1位起售 0为停售\"}},\"title\":\"SetmealDTO\",\"$$ref\":\"#/definitions/SetmealDTO\",\"required\":[\"categoryId\",\"image\",\"name\",\"price\",\"setmealDishes\",\"status\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/setmeal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"setmeal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "根据id查询套餐",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/setmeal/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"setmeal",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "101",
+									"description": "套餐id"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "工作台接口",
+			"item": [
+				{
+					"name": "查询今日运营数据",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/workspace/businessData",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"workspace",
+								"businessData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询套餐总览",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/workspace/overviewSetmeals",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"workspace",
+								"overviewSetmeals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询菜品总览",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/workspace/overviewDishes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"workspace",
+								"overviewDishes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询订单管理数据",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/workspace/overviewOrders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"workspace",
+								"overviewOrders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "店铺操作接口",
+			"item": [
+				{
+					"name": "获取营业状态",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/shop/status",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"shop",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "设置营业状态",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/admin/shop/:status",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"shop",
+								":status"
+							],
+							"variable": [
+								{
+									"key": "status",
+									"value": "1",
+									"description": "店铺营业状态：1为营业，0为打烊"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "数据统计相关接口",
+			"item": [
+				{
+					"name": "导出Excel报表接口",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/report/export",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"report",
+								"export"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询销量排名top10接口",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/report/top10?begin=2022-05-01&end=2022-05-31",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"report",
+								"top10"
+							],
+							"query": [
+								{
+									"key": "begin",
+									"value": "2022-05-01",
+									"description": "开始日期"
+								},
+								{
+									"key": "end",
+									"value": "2022-05-31",
+									"description": "结束日期"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户统计接口",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/report/userStatistics?begin=2022-05-01&end=2022-05-31",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"report",
+								"userStatistics"
+							],
+							"query": [
+								{
+									"key": "begin",
+									"value": "2022-05-01",
+									"description": "开始日期"
+								},
+								{
+									"key": "end",
+									"value": "2022-05-31",
+									"description": "结束日期"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "营业额统计接口",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/report/turnoverStatistics?begin=2022-05-01&end=2022-05-31",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"report",
+								"turnoverStatistics"
+							],
+							"query": [
+								{
+									"key": "begin",
+									"value": "2022-05-01",
+									"description": "开始日期"
+								},
+								{
+									"key": "end",
+									"value": "2022-05-31",
+									"description": "结束日期"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "订单统计接口",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/report/ordersStatistics?begin=2022-05-01&end=2022-05-31",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"report",
+								"ordersStatistics"
+							],
+							"query": [
+								{
+									"key": "begin",
+									"value": "2022-05-01",
+									"description": "开始日期"
+								},
+								{
+									"key": "end",
+									"value": "2022-05-31",
+									"description": "结束日期"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "菜品相关接口",
+			"item": [
+				{
+					"name": "修改菜品",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"type\":\"object\",\"properties\":{\"categoryId\":{\"type\":\"integer\",\"format\":\"int64\"},\"description\":{\"type\":\"string\"},\"flavors\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"dishId\":{\"type\":\"integer\",\"format\":\"int64\"},\"id\":{\"type\":\"integer\",\"format\":\"int64\"},\"name\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}},\"title\":\"DishFlavor\",\"$$ref\":\"#/definitions/DishFlavor\",\"required\":[\"name\",\"value\"]}},\"id\":{\"type\":\"integer\",\"format\":\"int64\"},\"image\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"price\":{\"type\":\"number\"},\"status\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"DishDTO\",\"$$ref\":\"#/definitions/DishDTO\",\"required\":[\"categoryId\",\"id\",\"image\",\"name\",\"price\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/dish",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"dish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "批量删除菜品",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/dish?ids=1,2,3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"dish"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "1,2,3",
+									"description": "菜品id，之间用逗号分隔"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增菜品",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"type\":\"object\",\"properties\":{\"categoryId\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"分类id\"},\"description\":{\"type\":\"string\",\"description\":\"菜品描述\"},\"flavors\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"dishId\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"菜品id\"},\"id\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"口味id\"},\"name\":{\"type\":\"string\",\"description\":\"口味名称\"},\"value\":{\"type\":\"string\",\"description\":\"口味值\"}},\"title\":\"DishFlavor\",\"$$ref\":\"#/definitions/DishFlavor\",\"required\":[\"name\",\"value\"]},\"description\":\"口味\"},\"id\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"菜品id\"},\"image\":{\"type\":\"string\",\"description\":\"菜品图片路径\"},\"name\":{\"type\":\"string\",\"description\":\"菜品名称\"},\"price\":{\"type\":\"number\",\"description\":\"菜品价格\"},\"status\":{\"type\":\"integer\",\"format\":\"int32\",\"description\":\"菜品状态：1为起售，0为停售\"}},\"title\":\"DishDTO\",\"$$ref\":\"#/definitions/DishDTO\",\"required\":[\"categoryId\",\"image\",\"name\",\"price\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/dish",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"dish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "根据id查询菜品",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/dish/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"dish",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "101",
+									"description": "菜品id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "根据分类id查询菜品",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/dish/list?categoryId=101",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"dish",
+								"list"
+							],
+							"query": [
+								{
+									"key": "categoryId",
+									"value": "101",
+									"description": "分类id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "菜品分页查询",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/dish/page?categoryId=101&name=宫保鸡丁&page=1&pageSize=10&status=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"dish",
+								"page"
+							],
+							"query": [
+								{
+									"key": "categoryId",
+									"value": "101",
+									"description": "分类id"
+								},
+								{
+									"key": "name",
+									"value": "宫保鸡丁",
+									"description": "菜品名称"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "页码"
+								},
+								{
+									"key": "pageSize",
+									"value": "10",
+									"description": "每页记录数"
+								},
+								{
+									"key": "status",
+									"value": "1",
+									"description": "分类状态"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "菜品起售、停售",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/admin/dish/status/:status?id=101",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"dish",
+								"status",
+								":status"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "101",
+									"description": "菜品id"
+								}
+							],
+							"variable": [
+								{
+									"key": "status",
+									"value": "1",
+									"description": "菜品状态：1为起售，0为停售"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "订单管理接口",
+			"item": [
+				{
+					"name": "取消订单",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"type\":\"object\",\"properties\":{\"cancelReason\":{\"type\":\"string\",\"description\":\"订单取消原因\"},\"id\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"订单id\"}},\"title\":\"OrdersCancelDTO\",\"$$ref\":\"#/definitions/OrdersCancelDTO\",\"required\":[\"cancelReason\",\"id\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/order/cancel",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"order",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "各个状态的订单数量统计",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/order/statistics",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"order",
+								"statistics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "完成订单",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/admin/order/complete/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"order",
+								"complete",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "101",
+									"description": "订单id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "拒单",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"订单id\"},\"rejectionReason\":{\"type\":\"string\",\"description\":\"拒单原因\"}},\"title\":\"OrdersRejectionDTO\",\"$$ref\":\"#/definitions/OrdersRejectionDTO\",\"required\":[\"id\",\"rejectionReason\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/order/rejection",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"order",
+								"rejection"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "接单",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"integer\",\"format\":\"int64\",\"description\":\"订单id\"}},\"title\":\"OrdersConfirmDTO\",\"$$ref\":\"#/definitions/OrdersConfirmDTO\",\"required\":[\"id\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/order/confirm",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"order",
+								"confirm"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询订单详情",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/order/details/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"order",
+								"details",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "101",
+									"description": "订单id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "派送订单",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/order/delivery/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"order",
+								"delivery",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "101",
+									"description": "订单id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "订单搜索",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/order/conditionSearch?beginTime=&endTime=&number=&page=&pageSize=&phone=&status=",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"order",
+								"conditionSearch"
+							],
+							"query": [
+								{
+									"key": "beginTime",
+									"value": "",
+									"description": "beginTime"
+								},
+								{
+									"key": "endTime",
+									"value": "",
+									"description": "endTime"
+								},
+								{
+									"key": "number",
+									"value": "",
+									"description": "number"
+								},
+								{
+									"key": "page",
+									"value": "",
+									"description": "page"
+								},
+								{
+									"key": "pageSize",
+									"value": "",
+									"description": "pageSize"
+								},
+								{
+									"key": "phone",
+									"value": "",
+									"description": "phone"
+								},
+								{
+									"key": "status",
+									"value": "",
+									"description": "status"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "通用接口",
+			"item": [
+				{
+					"name": "文件上传",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"description": "文件"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/common/upload",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"common",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
