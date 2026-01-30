@@ -19,7 +19,7 @@
     ],
     "paths": {
       "@/*": [
-        "src/*"
+        "sky-takeout/src/*"
       ]
     },
     "lib": [
@@ -30,14 +30,14 @@
     ]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
+    "sky-takeout/src/**/*.ts",
+    "sky-takeout/src/**/*.tsx",
     
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "sky-takeout/tests/**/*.ts",
+    "sky-takeout/tests/**/*.tsx"
   ],
   "exclude": [
     "node_modules",
-    "src/**/*.vue"
+    "sky-takeout/src/**/*.vue"
   ]
 }

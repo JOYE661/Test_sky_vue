@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 可以在这里覆盖一些全局样式 */
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #333;
+}
