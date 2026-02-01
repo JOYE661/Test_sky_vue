@@ -99,7 +99,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, computed, watch } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { addInventory, editInventory, queryInventoryById } from '@/api/inventory'
 import { queryCategoryByType } from '@/api/category'

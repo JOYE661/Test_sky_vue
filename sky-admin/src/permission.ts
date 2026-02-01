@@ -5,7 +5,7 @@ import 'nprogress/nprogress.css'
 
 const whiteList = ['/login']
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   nProgress.start()
   
   const userStore = useUserStore()

@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick, watch } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 import * as echarts from 'echarts'
 import { getTurnoverStatistics, getOrderStatistics, getUserStatistics, getTop10, exportReport } from '@/api/statistics'
 import { ElMessage } from 'element-plus'

@@ -68,7 +68,7 @@
                       default-first-option
                       placeholder="如：颜色" 
                       style="width: 150px"
-                      @change="(val) => handleFlavorNameChange(val, index)"
+                      @change="(val: any) => handleFlavorNameChange(val, index)"
                     >
                       <el-option v-for="opt in flavorOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
                    </el-select>
@@ -80,7 +80,7 @@
                         :key="tagIndex"
                         closable
                         :disable-transitions="false"
-                        @close="handleCloseTag(index, tagIndex)"
+                        @close="handleCloseTag(index, Number(tagIndex))"
                         style="margin-right: 5px"
                       >
                         {{ tag }}
@@ -123,7 +123,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, computed, nextTick } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { addProduct, editProduct, queryProductById } from '@/api/product'
 import { queryCategoryByType } from '@/api/category'
@@ -202,7 +202,7 @@ const removeFlavor = (index: number) => {
     inputValue.value.splice(index, 1)
 }
 
-const handleFlavorNameChange = (val: string, index: number) => {
+const handleFlavorNameChange = (_val: string, _index: number) => {
     // 可以在这里做一些自动填充逻辑，暂时不需要
 }
 

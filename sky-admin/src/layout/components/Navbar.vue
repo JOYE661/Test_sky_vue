@@ -77,7 +77,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, watch, onMounted, computed } from 'vue'
-import { useRoute, useRouter, RouteLocationMatched } from 'vue-router'
+import { useRoute, useRouter, type RouteLocationMatched } from 'vue-router'
 import { getShopStatus, setShopStatus } from '@/api/shop'
 import { useUserStore } from '@/store/modules/user'
 import { logout, editPassword } from '@/api/employee'
@@ -122,7 +122,7 @@ const passForm = reactive({
     confirmPassword: ''
 })
 
-const validateConfirm = (rule: any, value: any, callback: any) => {
+const validateConfirm = (_rule: any, value: any, callback: any) => {
     if (value !== passForm.newPassword) {
         callback(new Error('两次输入密码不一致'))
     } else {

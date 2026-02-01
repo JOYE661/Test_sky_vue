@@ -87,7 +87,7 @@ const ruleForm = reactive({
 })
 
 // 校验规则
-const validatePhone = (rule: any, value: any, callback: any) => {
+const validatePhone = (_rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('请输入手机号'))
   } else if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test(value)) {
@@ -97,7 +97,7 @@ const validatePhone = (rule: any, value: any, callback: any) => {
   }
 }
 
-const validateID = (rule: any, value: any, callback: any) => {
+const validateID = (_rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('请输入身份证号码'))
   } else if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)) {
@@ -107,7 +107,7 @@ const validateID = (rule: any, value: any, callback: any) => {
   }
 }
 
-const validateAccount = (rule: any, value: any, callback: any) => {
+const validateAccount = (_rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('请输入账号'))
   } else if (!/^([a-z]|[0-9]){3,20}$/.test(value)) {

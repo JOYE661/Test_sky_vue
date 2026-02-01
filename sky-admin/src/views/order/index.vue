@@ -225,8 +225,8 @@ const fetchData = async () => {
   loading.value = true
   // 处理时间
   if (dateRange.value && dateRange.value.length === 2) {
-      queryParams.beginTime = (dateRange.value[0] as Date).toISOString().replace('T', ' ').slice(0, 19)
-      queryParams.endTime = (dateRange.value[1] as Date).toISOString().replace('T', ' ').slice(0, 19)
+      queryParams.beginTime = (dateRange.value[0] as any).toISOString().replace('T', ' ').slice(0, 19)
+      queryParams.endTime = (dateRange.value[1] as any).toISOString().replace('T', ' ').slice(0, 19)
   } else {
       queryParams.beginTime = ''
       queryParams.endTime = ''

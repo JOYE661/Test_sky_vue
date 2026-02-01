@@ -165,7 +165,6 @@ const handleEdit = (id: string) => {
 }
 
 const handleStatusChange = (row: any) => {
-  const actionText = row.status === 1 ? '反审核' : '审核'
   const confirmText = row.status === 1 
       ? '反审核后单据将变为草稿状态，可重新编辑，确认操作吗?' 
       : '审核后单据将生效，确认操作吗?'
