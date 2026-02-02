@@ -60,15 +60,6 @@
       </ul>
     </div>
 
-    <!-- 3. 订单走势 (图表) -->
-    <div class="overview-box chart-section">
-       <div class="title">
-           订单走势
-           <span class="sub-link" @click="router.push('/statistics')">完整报表</span>
-       </div>
-       <div ref="chartRef" class="chart-box"></div>
-    </div>
-
     <div class="bottom-box">
       <!-- 3. 产品总览 (原菜品) -->
       <div class="overview-box left-box">
@@ -157,6 +148,15 @@
               </el-table>
           </el-tab-pane>
        </el-tabs>
+    </div>
+
+    <!-- 6. 订单走势 (图表) -->
+    <div class="overview-box chart-section">
+       <div class="title">
+           订单走势
+           <span class="sub-link" @click="router.push('/statistics')">完整报表</span>
+       </div>
+       <div ref="chartRef" class="chart-box"></div>
     </div>
   </div>
 </template>

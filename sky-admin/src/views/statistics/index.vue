@@ -5,6 +5,7 @@
         <div class="title">数据统计</div>
         <div class="filter">
            <el-radio-group v-model="dateType" @change="handleDateTypeChange" style="margin-right: 20px">
+              <el-radio-button label="1">今日</el-radio-button>
               <el-radio-button label="7">近7天</el-radio-button>
               <el-radio-button label="30">近30天</el-radio-button>
            </el-radio-group>
@@ -48,7 +49,7 @@ import { getTurnoverStatistics, getOrderStatistics, getUserStatistics, getTop10,
 import { ElMessage } from 'element-plus'
 
 // 日期相关
-const dateType = ref('7')
+const dateType = ref('1')
 const dateRange = ref<any>([])
 const activeTab = ref('turnover')
 
@@ -64,7 +65,7 @@ let myChart: echarts.ECharts | null = null
 const initDate = () => {
     const end = new Date()
     const start = new Date()
-    start.setTime(start.getTime() - 3600 * 1000 * 24 * 6) // 近7天
+    start.setTime(start.getTime() - 3600 * 1000 * 24 * 1) // 今日默认含昨日对比
     dateRange.value = [start, end]
 }
 
@@ -75,7 +76,7 @@ const disabledDate = (time: Date) => {
 const handleDateTypeChange = (val: string) => {
     const end = new Date()
     const start = new Date()
-    const days = parseInt(val) - 1
+    const days = val === '1' ? 1 : parseInt(val) - 1
     start.setTime(start.getTime() - 3600 * 1000 * 24 * days)
     dateRange.value = [start, end]
     fetchData()
@@ -88,9 +89,15 @@ const handleDateRangeChange = () => {
 
 const getParams = () => {
     if (!dateRange.value || dateRange.value.length < 2) return null
+    const formatDateLocal = (date: Date) => {
+        const year = date.getFullYear()
+        const month = String(date.getMonth() + 1).padStart(2, '0')
+        const day = String(date.getDate()).padStart(2, '0')
+        return `${year}-${month}-${day}`
+    }
     return {
-        begin: dateRange.value[0].toISOString().slice(0, 10),
-        end: dateRange.value[1].toISOString().slice(0, 10)
+        begin: formatDateLocal(dateRange.value[0]),
+        end: formatDateLocal(dateRange.value[1])
     }
 }
 

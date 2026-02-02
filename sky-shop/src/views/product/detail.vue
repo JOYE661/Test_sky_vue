@@ -172,10 +172,12 @@
             </div>
             <div v-if="activeTab === '规格参数'" class="bg-gray-50 rounded-2xl p-8 animate-fade-in">
                 <table class="w-full text-sm text-gray-600">
-                    <tr class="border-b border-gray-200"><td class="py-4 font-bold w-32">商品名称</td><td class="py-4">{{ product.name }}</td></tr>
-                    <tr class="border-b border-gray-200"><td class="py-4 font-bold">商品编号</td><td class="py-4">{{ product.id }}</td></tr>
-                    <tr class="border-b border-gray-200"><td class="py-4 font-bold">所属分类</td><td class="py-4">{{ product.categoryName }}</td></tr>
-                    <tr><td class="py-4 font-bold">存储方式</td><td class="py-4">冷链存储 (-18℃)</td></tr>
+                    <tbody>
+                        <tr class="border-b border-gray-200"><td class="py-4 font-bold w-32">商品名称</td><td class="py-4">{{ product.name }}</td></tr>
+                        <tr class="border-b border-gray-200"><td class="py-4 font-bold">商品编号</td><td class="py-4">{{ product.id }}</td></tr>
+                        <tr class="border-b border-gray-200"><td class="py-4 font-bold">所属分类</td><td class="py-4">{{ product.categoryName }}</td></tr>
+                        <tr><td class="py-4 font-bold">存储方式</td><td class="py-4">冷链存储 (-18℃)</td></tr>
+                    </tbody>
                 </table>
             </div>
          </div>
