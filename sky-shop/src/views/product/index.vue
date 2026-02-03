@@ -229,13 +229,16 @@ const handleAddToCart = async (item: any) => {
 const initCategories = async () => {
     try {
         const res: any = await getCategoryList(categoryType.value) // 1=产品 2=品牌
-        if (res && res.length > 0) {
-            categories.value = [{ id: 0, name: categoryType.value === 1 ? '全部产品' : '全部品牌' }, ...res]
-            activeCategoryId.value = 0 // 默认“全部”
-            fetchProducts()
-        }
+        // 无论有无分类，都初始化“全部”选项并加载产品，防止因分类为空导致页面空白
+        categories.value = [{ id: 0, name: categoryType.value === 1 ? '全部产品' : '全部品牌' }, ...(res || [])]
+        activeCategoryId.value = 0 // 默认“全部”
+        fetchProducts()
     } catch (e) {
         console.error('Fetch categories failed:', e)
+        // 即使分类加载失败，也尝试加载产品
+        categories.value = [{ id: 0, name: categoryType.value === 1 ? '全部产品' : '全部品牌' }]
+        activeCategoryId.value = 0
+        fetchProducts()
     }
 }
 
@@ -257,8 +260,15 @@ const fetchProducts = async () => {
             }
             products.value = list
         }
-    } catch (e) {
+    } catch (e: any) {
         console.error('Fetch products failed:', e)
+        if (e.message && (e.message.includes('401') || e.message.includes('code 401'))) {
+             ElMessage.error('请先登录以查看商品')
+        } else if (e.message && e.message.includes('500')) {
+             ElMessage.error('服务器内部错误(500)：请检查后端 Redis 是否已启动')
+        } else {
+             ElMessage.error('加载商品失败，请检查网络或后端服务')
+        }
     } finally {
         loading.value = false
     }
